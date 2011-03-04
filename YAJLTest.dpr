@@ -5,7 +5,8 @@ uses
   uMain in 'uMain.pas' {fMain},
   yajl_parse in 'yajl_parse.pas',
   yajl_common in 'yajl_common.pas',
-  yajl_gen in 'yajl_gen.pas';
+  yajl_gen in 'yajl_gen.pas',
+  delphi_yajl in 'delphi_yajl.pas';
 
 {$R *.res}
 

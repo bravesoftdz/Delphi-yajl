@@ -12,7 +12,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ImageHlp,
-  yajl_parse, yajl_common, yajl_gen;
+  yajl_parse, yajl_common, yajl_gen,
+  delphi_yajl;
 
 type
   TfMain = class(TForm)
@@ -28,6 +29,7 @@ type
     btnGetBuf: TButton;
     btnFreeGen: TButton;
     chkDelphiMemAlloc: TCheckBox;
+    btnDelphiYajlParse: TButton;
     procedure btnLoadClick(Sender: TObject);
     procedure btnAllocClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -38,6 +40,7 @@ type
     procedure btnFreeGenClick(Sender: TObject);
     procedure btnBuildObjClick(Sender: TObject);
     procedure btnGetBufClick(Sender: TObject);
+    procedure btnDelphiYajlParseClick(Sender: TObject);
   private
     fAllocFuncs: yajl_alloc_funcs;
     callbacks: yajl_callbacks;
@@ -311,6 +314,42 @@ begin
    end
    else
       mOutput.Lines.Add('Could not find function yajl_parse...');
+end;
+
+procedure TfMain.btnDelphiYajlParseClick(Sender: TObject);
+   procedure OutputJSON(rec: PJSONRec; const indent: Integer = 0);
+   var
+      i: Integer;
+      indentStr: String;
+   begin
+      indentStr := StringOfChar(' ', 5 * indent);
+      if rec.ChildrenCount > 0 then
+      begin
+         if rec.ChildrenCount = 1 then
+            mOutput.Lines.Add(Format('%s%s (1 Child)', [indentStr, String(rec.Key)]))
+         else
+            mOutput.Lines.Add(Format('%s%s (%d Children)', [indentStr, String(rec.Key), rec.ChildrenCount]));
+         for i := 0 to rec.ChildrenCount - 1 do
+            OutputJSON(rec.Children[i], indent + 1);
+      end
+      else
+         mOutput.Lines.Add(Format('%s%s: %s', [indentStr, String(rec.Key), String(rec.Value)]));
+   end;
+var
+   d: TDelphiYajl;
+   s: UTF8String;
+   rec: PJSONRec;
+begin
+  d := TDelphiYajl.Create;
+  try
+     s := UTF8String(eInput.Text);
+
+     rec := d.ParseJSON(s);
+     OutputJSON(rec);
+
+  finally
+     d.Free;
+  end;
 end;
 
 procedure TfMain.FormClose(Sender: TObject; var Action: TCloseAction);

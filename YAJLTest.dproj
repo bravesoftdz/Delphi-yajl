@@ -49,6 +49,7 @@
 			<DCCReference Include="yajl_parse.pas"/>
 			<DCCReference Include="yajl_common.pas"/>
 			<DCCReference Include="yajl_gen.pas"/>
+			<DCCReference Include="delphi_yajl.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

@@ -3,7 +3,7 @@ object fMain: TfMain
   Top = 0
   ActiveControl = btnLoad
   Caption = 'YAJL Test'
-  ClientHeight = 389
+  ClientHeight = 441
   ClientWidth = 430
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object fMain: TfMain
   OnClose = FormClose
   DesignSize = (
     430
-    389)
+    441)
   PixelsPerInch = 96
   TextHeight = 13
   object btnLoad: TButton
@@ -31,7 +31,7 @@ object fMain: TfMain
     Left = 8
     Top = 39
     Width = 322
-    Height = 343
+    Height = 395
     Anchors = [akLeft, akTop, akBottom]
     ScrollBars = ssVertical
     TabOrder = 10
@@ -69,7 +69,7 @@ object fMain: TfMain
     Width = 322
     Height = 21
     TabOrder = 11
-    Text = '{"Name" : "Nas","Rep" : "QB","Age" : 35}'
+    Text = '{"Name" : "Nas","Rep" : "QB","Sub": {"Age" : 35} }'
   end
   object btnFinParse: TButton
     Left = 336
@@ -126,5 +126,15 @@ object fMain: TfMain
     State = cbChecked
     TabOrder = 9
     WordWrap = True
+  end
+  object btnDelphiYajlParse: TButton
+    Left = 336
+    Top = 391
+    Width = 86
+    Height = 34
+    Caption = 'TDelphiYajl. ParseJSON()'
+    TabOrder = 12
+    WordWrap = True
+    OnClick = btnDelphiYajlParseClick
   end
 end
